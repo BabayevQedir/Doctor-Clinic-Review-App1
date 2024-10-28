@@ -110,7 +110,7 @@ public class DoctorServiceImpl implements DoctorService {
     @Override
     public Doctor updateDoctor(Long doctorId, Doctor doctor) {
         Doctor existingDoctor = getDoctorById(doctorId);
-        modelMapperPatch.map(existingDoctor,doctor);
+        modelMapperPatch.map(doctor,existingDoctor);
         return doctorRepository.save(existingDoctor);
     }
 
