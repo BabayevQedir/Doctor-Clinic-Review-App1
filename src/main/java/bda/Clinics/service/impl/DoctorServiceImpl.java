@@ -132,6 +132,10 @@ public class DoctorServiceImpl implements DoctorService {
         doctor.getSchedules().add(schedule);
         doctorRepository.save(doctor);
     }
+    @Override
+    public List<String> getDistinctSpecialities() {
+        return doctorRepository.findDistinctSpecialities();
+    }
 }
 
 

@@ -15,5 +15,6 @@ public interface DoctorRepository extends JpaRepository<Doctor,Long> , JpaSpecif
     List<Doctor> findAll();
     Optional<Doctor> findByFullName(String fullName);
     List<Doctor> findByIsActiveFalse();
-
+    @Query("SELECT DISTINCT d.speciality FROM Doctor d WHERE d.speciality IS NOT NULL")
+    List<String> findDistinctSpecialities();
 }

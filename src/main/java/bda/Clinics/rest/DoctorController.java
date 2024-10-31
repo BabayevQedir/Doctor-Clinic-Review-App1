@@ -86,6 +86,10 @@ public class DoctorController {
         doctorService.addClinicToDoctor(doctorId, clinic);
         return ResponseEntity.ok().build();
     }
+    @GetMapping("/specialties")
+    public List<String> getSpecialties() {
+        return doctorService.getDistinctSpecialities();
+    }
 }
 
 
