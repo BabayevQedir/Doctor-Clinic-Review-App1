@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/schedules")
@@ -33,10 +34,13 @@ public class ScheduleController {
         return ResponseEntity.ok(schedule);
     }
 
-    @PostMapping
-    public ResponseEntity<Schedule> createSchedule(@RequestBody RequestScheduleDto requestScheduleDto) {
-        Schedule createdSchedule = scheduleService.createSchedule(mapToSchedule(requestScheduleDto));
-        return ResponseEntity.ok(createdSchedule);
+    @PostMapping("/bulk")
+    public ResponseEntity<List<Schedule>> createSchedules(@RequestBody List<RequestScheduleDto> requestScheduleDtos) {
+        List<Schedule> schedules = requestScheduleDtos.stream()
+                .map(this::mapToSchedule)
+                .collect(Collectors.toList());
+        List<Schedule> createdSchedules = scheduleService.createSchedules(schedules);
+        return ResponseEntity.ok(createdSchedules);
     }
 
     @PutMapping("/{id}")
